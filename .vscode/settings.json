@@ -1,0 +1,7 @@
+{
+	"nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix",
+	"nixEnvSelector.useFlakes": true,
+	"files.associations": {
+		"*.css": "tailwindcss"
+	}
+}
