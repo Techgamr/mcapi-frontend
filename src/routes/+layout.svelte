@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { infoData, loadInfo, loginState, saveLoginState } from '$lib/state.svelte';
+	import { globalState, loadInfo, saveLoginState } from '$lib/state.svelte';
 	import Login from '$lib/components/Login.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import LoadingPage from '$lib/components/LoadingPage.svelte';
@@ -10,18 +10,19 @@
 	let { children } = $props();
 
 	// @ts-expect-error no typings for this?
-	$effect(async () => {
-		if (loginState.isLoggedIn && infoData.info === null) {
+	$effect.pre(async () => {
+		// @ts-expect-error intentional
+		if (globalState.refreshTrigger !== 'trigger' && globalState.login.isLoggedIn) {
 			await loadInfo();
 		}
 	});
 
 	$effect.pre(() => {
-		if (!loginState.isLoggedIn) {
+		if (!globalState.login.isLoggedIn) {
 			// @ts-expect-error should error
-			infoData.info = null;
+			globalState.info = null;
 		}
-		saveLoginState(loginState);
+		saveLoginState(globalState.login);
 	});
 </script>
 
@@ -30,9 +31,9 @@
 	<title>mcapi-frontend</title>
 </svelte:head>
 
-{#if !loginState.isLoggedIn && browser}
+{#if !globalState.login.isLoggedIn && browser}
 	<Login />
-{:else if infoData.info === null || !browser}
+{:else if globalState.info === null || !browser}
 	<LoadingPage />
 {:else}
 	<Navbar />

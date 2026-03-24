@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loginState } from '$lib/state.svelte';
+	import { globalState } from '$lib/state.svelte';
 	import { TrainFrontIcon, TramFrontIcon } from '@lucide/svelte';
 
 	interface TrainResponse {
@@ -24,14 +24,15 @@
 	}
 
 	let trains = $derived<{ [id: string]: TrainResponse }>(
+		(globalState.refreshTrigger,
 		await (
-			await fetch(`${loginState.baseUrl}/createmod/train`, {
-				method: 'GET',
+			await fetch(`${globalState.login.baseUrl}/createmod/train`, {
+				method: globalState.refreshTrigger ? 'GET' : 'GET',
 				headers: {
-					Authorization: `Bearer ${loginState.apiKey}`
+					Authorization: `Bearer ${globalState.login.apiKey}`
 				}
 			})
-		).json()
+		).json())
 	);
 </script>
 

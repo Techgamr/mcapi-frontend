@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loginState, validateLoginState } from '$lib/state.svelte';
+	import { globalState, validateLoginState } from '$lib/state.svelte';
 
 	let error = $state('');
 	let isLoading = $state(false);
@@ -9,20 +9,20 @@
 		error = '';
 		isLoading = true;
 
-		if (!loginState.baseUrl.trim() || !loginState.apiKey.trim()) {
+		if (!globalState.login.baseUrl.trim() || !globalState.login.apiKey.trim()) {
 			error = 'Please enter both base URL and API key';
 			isLoading = false;
 			return;
 		}
 
 		try {
-			const isValid = await validateLoginState(loginState);
+			const isValid = await validateLoginState(globalState.login);
 			isLoading = false;
 			if (!isValid) {
 				error = 'Invalid credentials. Please check your base URL and API key.';
 				return;
 			} else {
-				loginState.isLoggedIn = true;
+				globalState.login.isLoggedIn = true;
 			}
 		} catch (e) {
 			error = 'Login failed. Please try again.';
@@ -48,7 +48,7 @@
 				<input
 					id="baseUrl"
 					type="url"
-					bind:value={loginState.baseUrl}
+					bind:value={globalState.login.baseUrl}
 					placeholder="https://api.example.com"
 					class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 placeholder-gray-500 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
 					disabled={isLoading}
@@ -62,7 +62,7 @@
 				<input
 					id="apiKey"
 					type="password"
-					bind:value={loginState.apiKey}
+					bind:value={globalState.login.apiKey}
 					placeholder="Your API key"
 					class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 placeholder-gray-500 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
 					disabled={isLoading}

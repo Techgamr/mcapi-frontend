@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loginState } from '$lib/state.svelte';
+	import { globalState } from '$lib/state.svelte';
 	import { FlagTriangleRightIcon } from '@lucide/svelte';
 
 	interface StationResponse {
@@ -7,14 +7,15 @@
 		graph: string;
 	}
 	let trains = $derived<{ [key: string]: StationResponse }>(
+		(globalState.refreshTrigger,
 		await (
-			await fetch(`${loginState.baseUrl}/createmod/stations`, {
+			await fetch(`${globalState.login.baseUrl}/createmod/stations`, {
 				method: 'GET',
 				headers: {
-					Authorization: `Bearer ${loginState.apiKey}`
+					Authorization: `Bearer ${globalState.login.apiKey}`
 				}
 			})
-		).json()
+		).json())
 	);
 </script>
 

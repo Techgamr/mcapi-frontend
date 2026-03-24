@@ -6,38 +6,6 @@ export interface LoginState {
 	isLoggedIn: boolean;
 }
 
-export const loadLoginState = () => {
-	const itemFromLocalStorage = browser ? localStorage.getItem('login') : null;
-	if (itemFromLocalStorage) {
-		const authState: LoginState = JSON.parse(itemFromLocalStorage);
-		return authState;
-	} else {
-		return {
-			baseUrl: '',
-			apiKey: '',
-			isLoggedIn: false
-		};
-	}
-};
-
-export const loginState = $state(loadLoginState());
-
-export const validateLoginState = async (authState: LoginState) => {
-	const response = await fetch(authState.baseUrl, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${authState.apiKey}`
-		}
-	});
-	return response.ok;
-};
-
-export const saveLoginState = (authState: LoginState) => {
-	if (!browser) return;
-	localStorage.setItem('login', JSON.stringify(authState));
-};
-
-// info
 export interface ModInfo {
 	modid: string;
 	displayName: string;
@@ -62,19 +30,59 @@ export interface InfoData {
 	};
 }
 
-export const infoData = $state<{ info: InfoData }>({ info: null as unknown as InfoData });
+export interface GlobalState {
+	login: LoginState;
+	info: InfoData;
+	refreshTrigger: number;
+}
 
+export const loadLoginState = () => {
+	const itemFromLocalStorage = browser ? localStorage.getItem('login') : null;
+	if (itemFromLocalStorage) {
+		const authState: LoginState = JSON.parse(itemFromLocalStorage);
+		return authState;
+	} else {
+		return {
+			baseUrl: '',
+			apiKey: '',
+			isLoggedIn: false
+		};
+	}
+};
+
+export const globalState = $state<GlobalState>({
+	login: loadLoginState(),
+	info: null as unknown as InfoData,
+	refreshTrigger: 0
+});
+
+export const validateLoginState = async (authState: LoginState) => {
+	const response = await fetch(authState.baseUrl, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${authState.apiKey}`
+		}
+	});
+	return response.ok;
+};
+
+export const saveLoginState = (authState: LoginState) => {
+	if (!browser) return;
+	localStorage.setItem('login', JSON.stringify(authState));
+};
+
+// info
 export const loadInfo = async () => {
 	try {
-		infoData.info = await (
-			await fetch(`${loginState.baseUrl}/info`, {
+		globalState.info = await (
+			await fetch(`${globalState.login.baseUrl}/info`, {
 				method: 'GET',
 				headers: {
-					Authorization: `Bearer ${loginState.apiKey}`
+					Authorization: `Bearer ${globalState.login.apiKey}`
 				}
 			})
 		).json();
 	} catch {
-		loginState.isLoggedIn = false;
+		globalState.login.isLoggedIn = false;
 	}
 };

@@ -1,15 +1,25 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { navigating } from '$app/state';
-	import { loginState } from '$lib/state.svelte';
+	import { globalState } from '$lib/state.svelte';
 	import { MenuIcon } from '@lucide/svelte';
 
 	let isOpen = $state(false);
 
 	let shownUrl = $derived.by(() => {
-		let url = new URL(loginState.baseUrl);
+		let url = new URL(globalState.login.baseUrl);
 		return url.hostname + (url.pathname !== '/' ? url.pathname : '');
 	});
+
+	let isRefreshDisabled = $state(false);
+
+	function handleRefreshClick() {
+		isRefreshDisabled = true;
+		setTimeout(() => {
+			globalState.refreshTrigger++;
+			isRefreshDisabled = false;
+		}, 5);
+	}
 </script>
 
 {#snippet navLinks()}
@@ -38,7 +48,7 @@
 		<!-- LEFT SECTION -->
 		<div class="absolute left-4 flex flex-col items-center space-x-2">
 			<a class="text-2xl font-bold" href={resolve('/')}>mcapi</a>
-			<code class="hidden text-sm select-text lg:block" title={loginState.baseUrl}>
+			<code class="hidden text-sm select-text lg:block" title={globalState.login.baseUrl}>
 				{shownUrl}
 			</code>
 		</div>
@@ -64,7 +74,16 @@
 				</div>
 			{/if}
 			<button
-				onclick={() => (loginState.isLoggedIn = false)}
+				onclick={handleRefreshClick}
+				disabled={isRefreshDisabled}
+				class="h-full w-full rounded px-4 font-semibold transition-colors {isRefreshDisabled
+					? 'cursor-not-allowed bg-gray-400 text-gray-600 opacity-60 dark:bg-gray-600 dark:text-gray-400'
+					: 'bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800'}"
+			>
+				Refresh
+			</button>
+			<button
+				onclick={() => (globalState.login.isLoggedIn = false)}
 				class="h-full w-full rounded bg-red-600 px-4 font-semibold transition-colors hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
 			>
 				Logout
@@ -93,7 +112,7 @@
 			{@render navLinks()}
 			<div class="mx-2 flex">
 				<button
-					onclick={() => (loginState.isLoggedIn = false)}
+					onclick={() => (globalState.login.isLoggedIn = false)}
 					class="flex-1 rounded bg-red-600 px-4 py-2 font-semibold transition-colors hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
 				>
 					Logout
