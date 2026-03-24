@@ -8,7 +8,7 @@ export interface LoginState {
 }
 
 const defaultState: LoginState = {
-	baseUrl: 'sdfsdf',
+	baseUrl: '',
 	apiKey: '',
 	isLoggedIn: false,
 	isLoaded: false
