@@ -48,17 +48,23 @@
 				<span class="flex flex-row items-center gap-1.5">
 					<span class="text-xl font-bold select-text">{train.name}</span>
 					{#if train.derailed}
-						<span class="rounded-full bg-red-600/50 px-2 text-sm">Derailed</span>
+						<span class="rounded-full bg-red-400/50 px-2 text-sm dark:bg-red-600/50">Derailed</span>
 					{/if}
 					{#if train.currentlyBackwards}
-						<span class="rounded-full bg-cyan-600/50 px-2 text-sm">Backwards</span>
+						<span class="rounded-full bg-cyan-400/50 px-2 text-sm dark:bg-cyan-600/50"
+							>Backwards</span
+						>
 					{/if}
 					{#if train.runtime.schedule === null}
-						<span class="rounded-full bg-orange-600/50 px-2 text-sm">No Schedule</span>
+						<span class="rounded-full bg-orange-400/50 px-2 text-sm dark:bg-orange-600/50"
+							>No Schedule</span
+						>
 					{:else if train.runtime.paused}
-						<span class="rounded-full bg-yellow-600/50 px-2 text-sm">Paused</span>
+						<span class="rounded-full bg-yellow-400/50 px-2 text-sm dark:bg-yellow-600/50"
+							>Paused</span
+						>
 					{/if}
-					<span class="rounded-full bg-green-600/50 px-2 text-sm">
+					<span class="rounded-full bg-green-400/50 px-2 text-sm dark:bg-green-600/50">
 						{#if train.runtime.state === 'IN_TRANSIT'}
 							In Transit ({train.runtime.ticksInTransit / 20}s)
 						{:else if train.runtime.state === 'PRE_TRANSIT'}
