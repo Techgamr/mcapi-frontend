@@ -15,7 +15,7 @@
 		<div
 			class="flex max-h-full flex-col items-center gap-2 bg-gray-200 p-2 lg:overflow-y-hidden dark:bg-gray-700"
 		>
-			<h3 class="text-2xl font-bold">Trains</h3>
+			<h3 class="text-2xl font-bold">Your Trains</h3>
 			<div class="h-full w-full lg:overflow-y-auto">
 				<TrainList />
 			</div>
