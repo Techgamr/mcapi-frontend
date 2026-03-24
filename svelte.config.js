@@ -14,6 +14,11 @@ const config = {
 	vitePlugin: {
 		dynamicCompileOptions: ({ filename }) =>
 			filename.includes('node_modules') ? undefined : { runes: true }
+	},
+	compilerOptions: {
+		experimental: {
+			async: true
+		}
 	}
 };
 
