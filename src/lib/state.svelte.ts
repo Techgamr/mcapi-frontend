@@ -29,7 +29,7 @@ export const validateLoginState = async (authState: LoginState) => {
 			Authorization: `Bearer ${authState.apiKey}`
 		}
 	});
-	return response.status === 200;
+	return response.ok;
 };
 
 export const saveLoginState = (authState: LoginState) => {

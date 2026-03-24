@@ -11,12 +11,15 @@
 
 	// @ts-expect-error no typings for this?
 	$effect(async () => {
-		if (infoData.info === null && loginState.isLoggedIn) {
+		if (loginState.isLoggedIn && infoData.info === null) {
 			await loadInfo();
 		}
 	});
 
 	$effect.pre(() => {
+		if (!loginState.isLoggedIn) {
+			infoData.info = null;
+		}
 		saveLoginState(loginState);
 	});
 </script>
