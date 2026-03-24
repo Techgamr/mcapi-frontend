@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { navigating } from '$app/state';
 	import { loginState } from '$lib/state.svelte';
 	import { MenuIcon } from '@lucide/svelte';
 
@@ -48,10 +49,23 @@
 		</div>
 
 		<!-- RIGHT SECTION -->
-		<div class="absolute right-4 hidden items-center space-x-4 lg:flex">
+		<div class="absolute right-4 hidden h-12 items-center space-x-4 lg:flex">
+			{#if navigating.to}
+				<div class="flex flex-col items-center gap-4">
+					<!-- Spinner Icon -->
+					<div class="relative h-12 w-12">
+						<div
+							class="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-700"
+						></div>
+						<div
+							class="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-blue-500 dark:border-t-blue-400"
+						></div>
+					</div>
+				</div>
+			{/if}
 			<button
 				onclick={() => (loginState.isLoggedIn = false)}
-				class="rounded bg-red-600 px-4 py-2 font-semibold transition-colors hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
+				class="h-full w-full rounded bg-red-600 px-4 font-semibold transition-colors hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
 			>
 				Logout
 			</button>

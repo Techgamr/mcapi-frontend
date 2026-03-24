@@ -18,6 +18,7 @@
 
 	$effect.pre(() => {
 		if (!loginState.isLoggedIn) {
+			// @ts-expect-error should error
 			infoData.info = null;
 		}
 		saveLoginState(loginState);
