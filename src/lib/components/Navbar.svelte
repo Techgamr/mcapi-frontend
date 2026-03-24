@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { loginState } from '$lib/auth.svelte';
+	import { loginState } from '$lib/state.svelte';
 
 	let isOpen = $state(false);
 
@@ -31,7 +31,7 @@
 	</a>
 {/snippet}
 
-<nav class="bg-gray-50 transition-colors duration-200 select-none dark:bg-gray-900">
+<nav class="bg-gray-50 duration-200 select-none dark:bg-gray-900">
 	<div class="relative flex h-16 items-center justify-center">
 		<!-- LEFT SECTION -->
 		<div class="absolute left-4 flex flex-col items-center space-x-2">

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { loginState, validateLoginState } from '$lib/auth.svelte';
+	import { loginState, validateLoginState } from '$lib/state.svelte';
 
 	let error = $state('');
 	let isLoading = $state(false);

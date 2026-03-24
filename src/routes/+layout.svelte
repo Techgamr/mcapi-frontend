@@ -1,21 +1,18 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { loginState, saveLoginState, loadLoginState } from '$lib/auth.svelte';
+	import { infoData, loadInfo, loginState, saveLoginState } from '$lib/state.svelte';
 	import Login from '$lib/components/Login.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
-	import { onMount } from 'svelte';
 	import LoadingPage from '$lib/components/LoadingPage.svelte';
 
 	let { children } = $props();
 
-	onMount(() => {
-		loadLoginState().then((v) => {
-			loginState.baseUrl = v.baseUrl;
-			loginState.apiKey = v.apiKey;
-			loginState.isLoggedIn = v.isLoggedIn;
-			loginState.isLoaded = true;
-		});
+	// @ts-expect-error no typings for this?
+	$effect(async () => {
+		if (infoData.info === null && loginState.isLoggedIn) {
+			await loadInfo();
+		}
 	});
 
 	$effect.pre(() => {
@@ -28,10 +25,10 @@
 	<title>mcapi-frontend</title>
 </svelte:head>
 
-{#if !loginState.isLoaded}
-	<LoadingPage />
-{:else if !loginState.isLoggedIn}
+{#if !loginState.isLoggedIn}
 	<Login />
+{:else if infoData.info === null}
+	<LoadingPage />
 {:else}
 	<Navbar />
 	{@render children()}
