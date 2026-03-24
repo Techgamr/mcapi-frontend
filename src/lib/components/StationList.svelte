@@ -29,7 +29,7 @@
 				return acc;
 			}, { map: new Map(), names: new Set() } ).map as [id, station] (id)}
 		<div class="flex flex-row rounded bg-gray-300 p-2 dark:bg-gray-600">
-			<FlagTriangleRightIcon size="60" />
+			<FlagTriangleRightIcon class="size-16 min-h-16 min-w-16" />
 			<span class="flex flex-col justify-center">
 				<span class="text-xl font-bold select-text">{station.name}</span>
 				<span class="">on graph <code class="select-text">{station.graph}</code></span>

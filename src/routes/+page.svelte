@@ -16,7 +16,7 @@
 			class="flex max-h-full flex-col items-center gap-2 bg-gray-200 p-2 lg:overflow-y-hidden dark:bg-gray-700"
 		>
 			<h3 class="text-2xl font-bold">Mods</h3>
-			<div class="lg:overflow-y-auto">
+			<div class="h-full w-full lg:overflow-y-auto">
 				<ModList />
 			</div>
 		</div>
@@ -24,7 +24,7 @@
 			class="flex max-h-full flex-col items-center gap-2 bg-gray-200 p-2 lg:overflow-y-hidden dark:bg-gray-700"
 		>
 			<h3 class="text-2xl font-bold">Players</h3>
-			<div class="lg:overflow-y-auto">
+			<div class="h-full w-full lg:overflow-y-auto">
 				<PlayerList />
 			</div>
 		</div>
