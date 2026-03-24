@@ -5,6 +5,7 @@
 	import Login from '$lib/components/Login.svelte';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import LoadingPage from '$lib/components/LoadingPage.svelte';
+	import { browser } from '$app/environment';
 
 	let { children } = $props();
 
@@ -25,9 +26,9 @@
 	<title>mcapi-frontend</title>
 </svelte:head>
 
-{#if !loginState.isLoggedIn}
+{#if !loginState.isLoggedIn && browser}
 	<Login />
-{:else if infoData.info === null}
+{:else if infoData.info === null || !browser}
 	<LoadingPage />
 {:else}
 	<Navbar />
