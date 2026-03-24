@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { loginState } from '$lib/state.svelte';
+	import { MenuIcon } from '@lucide/svelte';
 
 	let isOpen = $state(false);
 
@@ -62,19 +63,7 @@
 			class="absolute right-4 rounded-lg p-2 text-gray-700 transition hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
 			title="open menu"
 		>
-			<svg
-				class="h-6 w-6 transition-transform duration-300 {isOpen ? 'rotate-90' : ''}"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 6h16M4 12h16M4 18h16"
-				/>
-			</svg>
+			<MenuIcon class="h-6 w-6 transition-transform duration-300 {isOpen ? 'rotate-90' : ''}" />
 		</button>
 	</div>
 
