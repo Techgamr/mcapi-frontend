@@ -9,7 +9,7 @@
 		error = '';
 		isLoading = true;
 
-		if (!globalState.login.baseUrl || !globalState.login.apiKey) {
+		if (!globalState.login.baseUrl.trim() || !globalState.login.apiKey.trim()) {
 			error = 'Please enter both base URL and API key';
 			isLoading = false;
 			return;
