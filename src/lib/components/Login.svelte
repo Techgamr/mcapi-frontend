@@ -9,10 +9,13 @@
 		error = '';
 		isLoading = true;
 
-		if (!globalState.login.baseUrl.trim() || !globalState.login.apiKey.trim()) {
+		if (!globalState.login.baseUrl || !globalState.login.apiKey) {
 			error = 'Please enter both base URL and API key';
 			isLoading = false;
 			return;
+		} else {
+			globalState.login.baseUrl = globalState.login.baseUrl.trim().replace(/\/$/, '');
+			globalState.login.apiKey = globalState.login.apiKey.trim().replace(/\/$/, '');
 		}
 
 		try {
