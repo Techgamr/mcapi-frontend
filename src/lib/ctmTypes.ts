@@ -56,8 +56,8 @@ export interface Signal {
 	id: string; // UUID as string
 	dimension: string;
 	location: Point;
-	forward: SignalSide;
-	reverse: SignalSide;
+	forward: SignalSide | null;
+	reverse: SignalSide | null;
 }
 
 export interface SignalSide {

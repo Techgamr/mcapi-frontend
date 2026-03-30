@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TrackMap from '$lib/components/TrackMap.svelte';
+	import CanvasTrackMap from '$lib/components/CanvasTrackMap.svelte';
 </script>
 
-<TrackMap />
+<CanvasTrackMap />
