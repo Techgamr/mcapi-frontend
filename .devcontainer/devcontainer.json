@@ -13,5 +13,10 @@
         "DavidAnson.vscode-markdownlint"
       ]
     }
+  },
+  "portsAttributes": {
+    "5173": {
+      "label": "dev"
+    }
   }
 }
