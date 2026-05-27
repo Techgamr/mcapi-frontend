@@ -9,7 +9,11 @@ updates:
     directory: '/'
     schedule:
       interval: 'daily'
+    assignees:
+      - "Techgamr"
   - package-ecosystem: 'nix'
     directory: '/'
     schedule:
       interval: 'daily'
+    assignees:
+      - "Techgamr"
